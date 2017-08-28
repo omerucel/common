@@ -18,4 +18,12 @@ abstract class ModuleAbstract implements Module
     {
         $this->container = $container;
     }
+
+    public function register()
+    {
+    }
+
+    public function run()
+    {
+    }
 }

@@ -3,8 +3,8 @@
 namespace OU\ZendExpressive\Module;
 
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Zend\Config\Config;
-use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\ServerRequestFactory;
 
 class ModuleDispatcher
@@ -30,13 +30,29 @@ class ModuleDispatcher
     }
 
     /**
-     * @param ServerRequest|null $request
+     * @param ServerRequestInterface|null $request
      */
-    public function dispatch(ServerRequest $request = null)
+    public function dispatch(ServerRequestInterface $request = null)
     {
         if ($request == null) {
             $request = ServerRequestFactory::fromGlobals();
         }
+        $this->registerModules();
+        $this->dispatchModule($request);
+    }
+
+    protected function registerModules()
+    {
+        foreach ($this->config->modules->toArray() as $pattern => $moduleClass) {
+            $this->container->get($moduleClass)->register();
+        }
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     */
+    protected function dispatchModule(ServerRequestInterface $request)
+    {
         foreach ($this->config->modules->toArray() as $pattern => $moduleClass) {
             if (preg_match('#^/?' . $pattern . '/?#', $request->getUri()->getPath(), $matches)) {
                 $this->container->get($moduleClass)->run();
