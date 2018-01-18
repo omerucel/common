@@ -2,10 +2,11 @@
 
 namespace OU\ZendExpressive\Module\Common\Middleware;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Interop\Http\Server\MiddlewareInterface;
+use Interop\Http\Server\RequestHandlerInterface;
 use OU\ClientIPAddressFinder;
 use OU\Logger\LoggerHelper;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class RequestLoggerMiddleware implements MiddlewareInterface
@@ -25,10 +26,10 @@ class RequestLoggerMiddleware implements MiddlewareInterface
 
     /**
      * @param ServerRequestInterface $request
-     * @param DelegateInterface $delegate
-     * @return \Psr\Http\Message\ResponseInterface
+     * @param RequestHandlerInterface $handler
+     * @return ResponseInterface
      */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler)
     {
         $message = 'New ' . $request->getMethod() . ' request for ' . strval($request->getUri());
         $this->loggerHelper->getDefaultLogger()->info(
@@ -39,6 +40,6 @@ class RequestLoggerMiddleware implements MiddlewareInterface
                 'server_ip' => $request->getServerParams()['SERVER_ADDR'] ?? ''
             ]
         );
-        return $delegate->process($request);
+        return $handler->handle($request);
     }
 }

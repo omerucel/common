@@ -50,6 +50,8 @@ class ModuleDispatcher
 
     /**
      * @param ServerRequestInterface $request
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     protected function dispatchModule(ServerRequestInterface $request)
     {

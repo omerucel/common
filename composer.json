@@ -2,14 +2,15 @@
     "name": "omerucel/common",
     "type": "library",
     "require": {
-        "zendframework/zend-config": "3.1.0",
-        "zendframework/zend-expressive": "2.0.3",
-        "zendframework/zend-expressive-fastroute": "2.1",
-        "php-di/php-di": "5.4.3",
-        "psr/log": "1.0.2"
+        "zendframework/zend-config": "3.*",
+        "zendframework/zend-expressive": "2.*",
+        "zendframework/zend-expressive-fastroute": "2.*",
+        "php-di/php-di": "5.*",
+        "psr/log": "1.0.2",
+        "http-interop/http-middleware": "^0.5.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.3"
+        "phpunit/phpunit": "6.*"
     },
     "license": "MIT",
     "authors": [
