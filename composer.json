@@ -7,7 +7,7 @@
         "zendframework/zend-expressive-fastroute": "2.*",
         "php-di/php-di": "5.*",
         "psr/log": "1.0.2",
-        "http-interop/http-middleware": "^0.5.0"
+        "http-interop/http-middleware": "^0.4.1"
     },
     "require-dev": {
         "phpunit/phpunit": "6.*"
